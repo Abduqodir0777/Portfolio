@@ -34,44 +34,65 @@
   ======================================================= -->
 </head>
 
-<body id="page-top">
-
-  <!--/ Nav Star /-->
-  <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand js-scroll" href="#page-top">DevFolio</a>
-      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link js-scroll active" href="#home">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="#about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="#service">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="#work">Work</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="#blog">Blog</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="#contact">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!--/ Nav End /-->
-
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center justify-content-between">
+            <h1 class="logo">
+                <a href="">DevFolio</a>
+            </h1>
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto active" href="#">Home</a></li>
+                    <li><a class="nav-link scrollto" href="#about">About</a></li>
+                    <li><a class="nav-link scrollto" href="#services">Services</a></li>
+                    <li><a class="nav-link scrollto" href="#work">Work</a></li>
+                    {% if request.user.is_authenticated and users.id == request.user.id %}
+                        <li class="dropdown">
+                            <a href=""><span>{{ users.username }}</span>
+                                <i class="bi bi-chevron-down"></i>
+                            </a>
+                            <ul>
+                                <li><a href="">{{ users.get_full_name }}</a></li>
+                                <li class="dropdown">
+                                    <a><span>Update</span>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                    <ul>
+                                        <li><a href="{% url 'update' %}">Update User</a></li>
+                                        <li><a href="{% url 'add-skill' %}">Add Skill</a></li>
+                                        <li><a href="{% url 'add-blog' %}">Add Blog</a></li>
+                                        <li><a href="{% url 'add-portfolio' %}">Add Portfolio</a></li>
+                                        <li><a href="{% url 'add-service' %}">Add Service</a></li>
+                                        <li><a href="{% url 'add-statistic' %}">Add Statistic</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                    <li><a class="nav-link scrollto" href="#blog">Blog</a></li>
+                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                    {% if not request.user.is_authenticated or users.id != request.user.id %}
+                        <li>
+                            <a
+                                    class="nav-link scrollto"
+                                    href=""
+                            >Partner Comment</a>
+                        </li>
+                        <li>
+                            <a class="nav-link scrollto"
+                               href="{% url 'home' %}"
+                            >Back</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+            <!-- .navbar -->
+        </div>
+    </header>
+    <!-- End Header -->
 
 {% block container%}{% endblock %}
 

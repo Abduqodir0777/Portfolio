@@ -1,8 +1,6 @@
-from django.db.models import Q
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 
 from apps.models import User
 from apps.forms import SignUpForm
@@ -12,13 +10,15 @@ def homepagefunc(request):
     return render(request, 'main.html')
 
 
+def index(request):
+    return render(request, 'index.html')
+
+
 def signupfunc(request):
     if request.method == 'POST':
         data = SignUpForm(request.POST, files=request.FILES)
         if data.is_valid():
-            user = data.save(commit=False)
-            user.password = make_password(data.cleaned_data['password1'])
-            user.save()
+            user = data.save()
             login(request, user)
             return redirect('login')
         else:
@@ -30,19 +30,18 @@ def signupfunc(request):
 
 
 def loginfunc(request):
-    if request.POST:
+    if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('my-profile')
+        try:
+            user = User.objects.get(username=username)
+            if user.check_password(password):
+                return redirect('my-profile')
+            else:
+                return render(request, 'login.html', {'error': 'Invalid credentials'})
+        except User.DoesNotExist:
+            return render(request, 'login.html', {'error': 'User does not exist'})
     return render(request, 'login.html')
-
-
-# @login_required
-def index(request):
-    return render(request, 'index.html')
 
 
 def userfunc(request, username):
