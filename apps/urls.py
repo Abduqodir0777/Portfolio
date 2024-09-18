@@ -1,10 +1,9 @@
 from django.urls import path
-from apps.views import index, homepagefunc, signupfunc, loginfunc, userfunc
+from apps.views import home, PortfolioDetailsView, BlogSingleView, commentfunc
 
 urlpatterns = [
-    path('', homepagefunc, name='home'),
-    path('register/', signupfunc, name='register'),
-    path('login/', loginfunc, name='login'),
-    path('my-profile/', index, name='my-profile'),
-    path('<str:username>/', userfunc, name='user'),
+    path("", home, name="home"),
+    path("portfolio_details/<int:id>", PortfolioDetailsView, name="portfolio_details"),
+    path("blog_single/", BlogSingleView, name="blog_single"),
+    path('post/<int:pk>/', commentfunc, name='post'),
 ]

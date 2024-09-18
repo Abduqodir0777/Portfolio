@@ -5,7 +5,7 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center justify-content-between">
-      <h1 class="logo"><a href="{% url 'user' users.username %}">DevFolio</a></h1>
+      {% comment %} <h1 class="logo"><a href="{% url 'user' user.username %}">DevFolio</a></h1> {% endcomment %}
       <nav id="navbar" class="navbar">
         <ul>
         {% if request.user.is_authenticated and users.id == request.user.id %}
@@ -44,13 +44,13 @@
                     <div class="portfolio-details-slider swiper">
                         <div class="swiper-wrapper align-items-center">
                             <div class="swiper-slide">
-                                <img src="{{portfolio.image.url}}" alt="">
+                                <img src="{{portfolio.image_details.url}}" alt="">
                             </div>
                             <div class="swiper-slide">
-                                <img src="{% static 'img/portfolio-details-2.jpg' %}" alt="">
+                                <img src="{% static 'assets/img/portfolio-details-1.jpg' %}" alt="">
                             </div>
                             <div class="swiper-slide">
-                                <img src="{% static 'img/portfolio-details-3.jpg' %}" alt="">
+                                <img src="{% static 'assets/img/portfolio-details-2.jpg' %}" alt="">
                             </div>
                         </div>
                         <div class="swiper-pagination"></div>
@@ -60,16 +60,16 @@
                     <div class="portfolio-info">
                         <h3>Project information</h3>
                         <ul>
-                            <li><strong>Category</strong>: {{portfolio.get_category_display}}</li>
-                            <li><strong>Client</strong>: {{portfolio.company}}</li>
-                            <li><strong>Project date</strong>: {{portfolio.create_at}}</li>
+                            <li><strong>Category</strong>: {{portfolio.category}}</li>
+                            <li><strong>Client</strong>: {{portfolio.client}}</li>
+                            <li><strong>Project date</strong>: {{portfolio.project_date}}</li>
                             <li><strong>Project URL</strong>: <a href="{{portfolio.project_url}}">{{portfolio.project_url}}</a></li>
                         </ul>
                     </div>
                     <div class="portfolio-description">
-                        <h2>{{portfolio.title}}</h2>
+                        <h1>This is an example of portfolio detail</h1>
                         <p>
-                            {{portfolio.description}}
+                            {{portfolio.about_project}}
                         </p>
                     </div>
                 </div>

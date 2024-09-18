@@ -1,0 +1,19 @@
+{
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredLightColorTheme": "Default Light Modern",
+    "workbench.preferredDarkColorTheme": "Visual Studio Light",
+    "workbench.colorTheme": "Default Dark Modern",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "test",
+            "database": "postgres",
+            "username": "postgres",
+            "password": "12345678",
+            "connectionTimeout": 30
+        }
+    ]
+}
